@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {
   Pressable,
   SafeAreaView,
@@ -12,6 +12,7 @@ import {
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import Fonts from '../utils/fonts';
 import Metrics from '../utils/Metrics';
+import {AppContext} from '../Context/AppProvider';
 
 const FilmView = ({navigation, route}) => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -20,13 +21,13 @@ const FilmView = ({navigation, route}) => {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
-  const [apiPerson, setApiPerson] = useState(
-    route.params.peoplesApi.current.results,
-  );
+  const {peoplesApi} = useContext(AppContext);
+
+  const [apiPerson, setApiPerson] = useState(peoplesApi.current.results);
 
   useEffect(() => {
-    setApiPerson(route.params.peoplesApi.current.results);
-  }, [route.params.peoplesApi]);
+    setApiPerson(peoplesApi.current.results);
+  }, [peoplesApi]);
 
   navigation.setOptions({title: route.params.film.title});
 
@@ -77,8 +78,6 @@ const FilmView = ({navigation, route}) => {
                     onPress={() => {
                       navigation.navigate('CharacterView', {
                         person,
-                        moviesApi: route.params.moviesApi,
-                        peoplesApi: route.params.peoplesApi,
                       });
                     }}>
                     <Text style={styles.textPerson}>{person.name} </Text>

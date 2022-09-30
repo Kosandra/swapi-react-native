@@ -1,13 +1,11 @@
 import React from 'react';
 import {Pressable, StyleSheet, Text} from 'react-native';
 
-const ItemButtonPerson = ({navigation, person, moviesApi, peoplesApi}) => {
+const ItemButtonPerson = ({navigation, person}) => {
   return (
     <Pressable
       style={styles.btnList}
-      onPress={() =>
-        navigation.navigate('CharacterView', {person, moviesApi, peoplesApi})
-      }>
+      onPress={() => navigation.navigate('CharacterView', {person})}>
       <Text style={styles.textBtnList}>{person.name}</Text>
     </Pressable>
   );

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {
   Pressable,
   SafeAreaView,
@@ -7,8 +7,12 @@ import {
   Text,
 } from 'react-native';
 import ItemButtonPerson from './ItemButtonPerson';
+import Metrics from '../utils/Metrics';
+import {AppContext} from '../Context/AppProvider';
 
-const PeoplesScreen = ({navigation, peoplesApi, moviesApi}) => {
+const PeoplesScreen = ({navigation}) => {
+  const {peoplesApi} = useContext(AppContext);
+
   const [pls, setPls] = useState(peoplesApi.current);
   useEffect(() => {
     setPls(peoplesApi.current);
@@ -21,12 +25,7 @@ const PeoplesScreen = ({navigation, peoplesApi, moviesApi}) => {
             <Text>Undefffff</Text>
           ) : (
             pls.results.map((pers, key) => (
-              <ItemButtonPerson
-                peoplesApi={peoplesApi}
-                moviesApi={moviesApi}
-                navigation={navigation}
-                person={pers}
-              />
+              <ItemButtonPerson navigation={navigation} person={pers} />
             ))
           )}
         </Pressable>
@@ -38,6 +37,7 @@ const PeoplesScreen = ({navigation, peoplesApi, moviesApi}) => {
 const styles = StyleSheet.create({
   scrollView: {
     backgroundColor: 'pink',
+    height: Metrics.screenHeight,
   },
 });
 

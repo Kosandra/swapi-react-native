@@ -3,13 +3,11 @@ import {Text, StyleSheet, Pressable} from 'react-native';
 import Metrics from '../utils/Metrics';
 import Fonts from '../utils/fonts';
 
-const ItemButtonFilm = ({navigation, film, peoplesApi, moviesApi}) => {
+const ItemButtonFilm = ({navigation, film}) => {
   return (
     <Pressable
       style={styles.btnList}
-      onPress={() =>
-        navigation.navigate('FilmView', {film, peoplesApi, moviesApi})
-      }>
+      onPress={() => navigation.navigate('FilmView', {film})}>
       <Text style={styles.textBtnList}>{film.title}</Text>
     </Pressable>
   );

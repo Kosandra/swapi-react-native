@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {
   Pressable,
   SafeAreaView,
@@ -8,8 +8,10 @@ import {
 } from 'react-native';
 import ItemButtonFilm from './ItemButtonFilm';
 import Metrics from '../utils/Metrics';
+import {AppContext} from '../Context/AppProvider';
 
-const MoviesScreen = ({navigation, moviesApi, peoplesApi}) => {
+const MoviesScreen = ({navigation}) => {
+  const {moviesApi} = useContext(AppContext);
   const [movies, setMovies] = useState(moviesApi.current);
   useEffect(() => {
     setMovies(moviesApi.current);
@@ -22,12 +24,7 @@ const MoviesScreen = ({navigation, moviesApi, peoplesApi}) => {
             <Text>Undefffff</Text>
           ) : (
             movies.results.map((movie, key) => (
-              <ItemButtonFilm
-                moviesApi={moviesApi}
-                film={movie}
-                navigation={navigation}
-                peoplesApi={peoplesApi}
-              />
+              <ItemButtonFilm film={movie} navigation={navigation} />
             ))
           )}
         </Pressable>
