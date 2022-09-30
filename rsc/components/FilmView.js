@@ -21,13 +21,7 @@ const FilmView = ({navigation, route}) => {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
-  const {peoplesApi} = useContext(AppContext);
-
-  const [apiPerson, setApiPerson] = useState(peoplesApi.current.results);
-
-  useEffect(() => {
-    setApiPerson(peoplesApi.current.results);
-  }, [peoplesApi]);
+  const {peoplesState} = useContext(AppContext);
 
   navigation.setOptions({title: route.params.film.title});
 
@@ -64,10 +58,10 @@ const FilmView = ({navigation, route}) => {
         <View style={styles.viewText}>
           <Text style={styles.textHeader}>Персонажи:</Text>
           <View>
-            {!apiPerson ? (
-              <Text>asdasd</Text>
+            {!peoplesState.results ? (
+              <Text>Please wait...</Text>
             ) : (
-              apiPerson
+              peoplesState.results
                 .filter(person => {
                   return (
                     route.params.film.characters.indexOf(person.url) !== -1

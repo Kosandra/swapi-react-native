@@ -11,18 +11,20 @@ import Metrics from '../utils/Metrics';
 import {AppContext} from '../Context/AppProvider';
 
 const PeoplesScreen = ({navigation}) => {
-  const {peoplesApi} = useContext(AppContext);
+  const {peoplesState} = useContext(AppContext);
 
-  const [pls, setPls] = useState(peoplesApi.current);
+  const [pls, setPls] = useState(peoplesState);
+
   useEffect(() => {
-    setPls(peoplesApi.current);
-  }, [peoplesApi]);
+    setPls(peoplesState);
+  }, [peoplesState]);
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView}>
         <Pressable>
           {pls.results === undefined ? (
-            <Text>Undefffff</Text>
+            <Text>Please wait...</Text>
           ) : (
             pls.results.map((pers, key) => (
               <ItemButtonPerson navigation={navigation} person={pers} />

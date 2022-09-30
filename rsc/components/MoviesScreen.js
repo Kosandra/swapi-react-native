@@ -11,17 +11,20 @@ import Metrics from '../utils/Metrics';
 import {AppContext} from '../Context/AppProvider';
 
 const MoviesScreen = ({navigation}) => {
-  const {moviesApi} = useContext(AppContext);
-  const [movies, setMovies] = useState(moviesApi.current);
+  const {moviesState} = useContext(AppContext);
+
+  const [movies, setMovies] = useState(moviesState);
+
   useEffect(() => {
-    setMovies(moviesApi.current);
-  }, [moviesApi]);
+    setMovies(moviesState);
+  }, [moviesState]);
+
   return (
     <SafeAreaView>
       <ScrollView style={styles.scrollView}>
         <Pressable>
           {movies.results === undefined ? (
-            <Text>Undefffff</Text>
+            <Text>Please wait...</Text>
           ) : (
             movies.results.map((movie, key) => (
               <ItemButtonFilm film={movie} navigation={navigation} />

@@ -5,7 +5,7 @@ import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs
 
 const Tab = createMaterialTopTabNavigator();
 
-const HomeScreen = ({navigation, moviesApi, peoplesApi}) => {
+const HomeScreen = ({navigation}) => {
   return (
     <Tab.Navigator
       initialRouteName="Feed"
@@ -16,23 +16,11 @@ const HomeScreen = ({navigation, moviesApi, peoplesApi}) => {
       }}>
       <Tab.Screen
         name="Фильмы"
-        component={() => (
-          <MoviesScreen
-            moviesApi={moviesApi}
-            navigation={navigation}
-            peoplesApi={peoplesApi}
-          />
-        )}
+        component={() => <MoviesScreen navigation={navigation} />}
       />
       <Tab.Screen
         name="Персонажи"
-        component={() => (
-          <PeoplesScreen
-            peoplesApi={peoplesApi}
-            moviesApi={moviesApi}
-            navigation={navigation}
-          />
-        )}
+        component={() => <PeoplesScreen navigation={navigation} />}
       />
     </Tab.Navigator>
   );

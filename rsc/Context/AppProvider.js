@@ -1,28 +1,21 @@
-import React, {createContext, useRef} from 'react';
+import React, {createContext, useEffect, useRef, useState} from 'react';
 
-export const AppContext = createContext({peoplesApi: {}, moviesApi: {}});
+export const AppContext = createContext({peoplesState: {}, moviesState: {}});
 
 const AppProvider = ({children}) => {
-  const peoplesApi = useRef({});
-  const moviesApi = useRef({});
 
-  const setPeoples = ({peoples}) => {
-    peoples.current = peoples;
-  };
-
-  const setMovies = ({movies}) => {
-    movies.current = moviesApi;
-  };
+  const [peoplesState, setPeoplesState] = useState({  });
+  const [moviesState, setMoviesState] = useState({});
 
   const getPeoples = async () => {
-    peoplesApi.current = await fetch('https://swapi.dev/api/people/').then(
-      res => res.json(),
+    setPeoplesState(
+      await fetch('https://swapi.dev/api/people/').then(res => res.json()),
     );
   };
 
   const getFilms = async () => {
-    moviesApi.current = await fetch('https://swapi.dev/api/films/').then(res =>
-      res.json(),
+    setMoviesState(
+      await fetch('https://swapi.dev/api/films/').then(res => res.json()),
     );
   };
 
@@ -30,7 +23,7 @@ const AppProvider = ({children}) => {
   getPeoples();
 
   return (
-    <AppContext.Provider value={{peoplesApi, moviesApi, setPeoples, setMovies}}>
+    <AppContext.Provider value={{moviesState, peoplesState}}>
       {children}
     </AppContext.Provider>
   );

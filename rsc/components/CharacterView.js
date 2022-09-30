@@ -15,19 +15,13 @@ import Metrics from '../utils/Metrics';
 import {AppContext} from '../Context/AppProvider';
 
 const CharactersView = ({navigation, route}) => {
-  const {peoplesApi, moviesApi} = useContext(AppContext);
+  const {moviesState} = useContext(AppContext);
 
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
-
-  const [apiMovies, setApiMovies] = useState(moviesApi.current.results);
-
-  useEffect(() => {
-    setApiMovies(moviesApi.current.results);
-  }, [moviesApi]);
 
   navigation.setOptions({title: route.params.person.name});
 
@@ -72,10 +66,10 @@ const CharactersView = ({navigation, route}) => {
         <View style={styles.viewText}>
           <Text style={styles.textHeader}>Фильмы:</Text>
           <View style={styles.text}>
-            {!apiMovies ? (
-              <Text>asdasd</Text>
+            {!moviesState.results ? (
+              <Text>Please wait...</Text>
             ) : (
-              apiMovies
+              moviesState.results
                 .filter(film => {
                   return route.params.person.films.indexOf(film.url) !== -1;
                 })

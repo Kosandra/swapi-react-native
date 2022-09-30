@@ -1,5 +1,6 @@
 import React from 'react';
 import {Pressable, StyleSheet, Text} from 'react-native';
+import Metrics from "../utils/Metrics";
 
 const ItemButtonPerson = ({navigation, person}) => {
   return (
@@ -18,6 +19,7 @@ const styles = StyleSheet.create({
     margin: 10,
     alignSelf: 'center',
     alignItems: 'center',
+    borderRadius: Metrics.getWidth(20),
   },
   textBtnList: {
     fontSize: 18,

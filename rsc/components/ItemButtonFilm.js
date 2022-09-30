@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
     marginVertical: Metrics.getHeight(10),
     alignSelf: 'center',
     alignItems: 'center',
+    borderRadius: Metrics.getWidth(20),
   },
   textBtnList: {
     fontSize: Fonts.size.h4,
